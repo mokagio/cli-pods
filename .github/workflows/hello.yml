@@ -1,0 +1,21 @@
+name: Install CLI Pods
+on: [push]
+jobs:
+  build:
+    name: Install CLI Pods
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 💎Cache Gems
+        id: cache-gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: 📦 Bundle Gems
+        if: steps.cache-gems.outputs.cache-hit != 'true'
+        run: bundle install
