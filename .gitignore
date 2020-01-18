@@ -1,0 +1,6 @@
+# We ignore the Pods folder because we don't want to track binaries in the
+# repo. As the tools get new versions, new binaries would have to be checked
+# in. With Git, this means that the size of the repo would keep growing and
+# growing over time, which is something we'd rather avoid in a production
+# environment.
+Pods
