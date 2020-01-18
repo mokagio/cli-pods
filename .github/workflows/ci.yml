@@ -19,3 +19,16 @@ jobs:
       - name: 📦 Bundle Gems
         if: steps.cache-gems.outputs.cache-hit != 'true'
         run: bundle install
+
+      - name: 🍫 Cache Pods
+        id: cache-pods
+        uses: actions/cache@v1
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: 📦 Build Pods
+        if: steps.cache-pods.outputs.cache-hit != 'true'
+        run: bundle exec pod install
