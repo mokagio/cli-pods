@@ -1,4 +1,4 @@
-name: Install CocoaPods
+name: Showcase not-integrated Pods CLI setup
 on: [push]
 jobs:
   build:
@@ -32,3 +32,9 @@ jobs:
       - name: 📦 Build Pods
         if: steps.cache-pods.outputs.cache-hit != 'true'
         run: bundle exec pod install
+
+      - name: 🤓 SwiftLint
+        run: ./Pods/SwiftLint/swiftlint lint Sample.swift
+
+      - name: 🤓 SwiftFormat
+        run: ./Pods/SwiftFormat/CommandLineTool/swiftformat --dryrun Sample.swift
